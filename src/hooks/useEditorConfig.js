@@ -1,5 +1,6 @@
 import { DefaultElement } from "slate-react";
 import Link from '../components/Link'
+import Mention from '../components/Mention'
 
 export default function useEditorConfig(editor) {
 
@@ -11,6 +12,8 @@ export default function useEditorConfig(editor) {
 function renderElement(props) {
   const { element, children, attributes } = props;
   switch (element.type) {
+    case 'mention':
+      return <Mention {...props} />
     case "paragraph":
       return <p {...attributes}>{children}</p>;
     case "h1":

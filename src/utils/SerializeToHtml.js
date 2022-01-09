@@ -25,6 +25,8 @@ const serialize = node => {
       return `<blockquote><p>${children}</p></blockquote>`
     case 'paragraph':
       return `<p><span>${children}</span></p>`
+    case 'mention':
+      return `<span>${children}</span>`
     case 'link':
       // TODO - test for internal vs external domain, and 
       // include rel="noopener noreferrer" attribute for external
