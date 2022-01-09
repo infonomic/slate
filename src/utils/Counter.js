@@ -5,7 +5,7 @@ const counter = (node, count = 0) => {
     return count + node.text.length
   }
 
-  node.children.map(n => count = counter(n, count))
+  node.children.forEach(n => count = counter(n, count))
   
   return count
 }

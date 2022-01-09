@@ -26,6 +26,9 @@ const serialize = node => {
     case 'paragraph':
       return `<p><span>${children}</span></p>`
     case 'link':
+      // TODO - test for internal vs external domain, and 
+      // include rel="noopener noreferrer" attribute for external
+      // domains only
       return `<a href="${escapeHtml(node.url)}" rel="noopener noreferrer">${children}</a>`
     default:
       return children
