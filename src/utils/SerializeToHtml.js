@@ -26,7 +26,8 @@ const serialize = node => {
     case 'paragraph':
       return `<p><span>${children}</span></p>`
     case 'mention':
-      return `<span>${children}</span>`
+      // TODO write serializer for mentions - style, classname, and link to user
+      return `<span>@${node.user}</span>`
     case 'link':
       // TODO - test for internal vs external domain, and 
       // include rel="noopener noreferrer" attribute for external

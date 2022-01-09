@@ -9,6 +9,8 @@ A simplified version of
 
 Hyperlinks are created automatically with 'space after link', and word breaks hyphens are handled correctly for long words and long links. 
 
+@mentions are enabled, and will insert a username at an inline element at the current cursor position.
+
 There is an example HTML serializer.
 
 ## Setup
