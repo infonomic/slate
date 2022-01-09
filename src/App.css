@@ -1,0 +1,15 @@
+header {
+  background-color: aquamarine;
+  padding: 18px;
+}
+
+main {
+  padding: 18px;
+}
+
+.editor, .output {
+  border: solid 1px #aaaaaa;
+  padding: 18px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
