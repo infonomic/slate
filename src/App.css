@@ -7,9 +7,18 @@ main {
   padding: 18px;
 }
 
-.editor, .output {
+.editor-panel, .html-panel {
+  margin: 1em 0;
   border: solid 1px #aaaaaa;
   padding: 18px;
+}
+
+.editor, .output {
+  background-color: #f4f4f4f4;
+  padding: 18px;
+}
+
+.html-panel .output {
   white-space: pre-wrap;
   overflow-wrap: break-word;
 }

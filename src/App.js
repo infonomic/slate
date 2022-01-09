@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Editor from './components/Editor';
 import ExampleDocument from './utils/ExampleDocument'
 import serialize from './utils/SerializeToHtml'
+import counter from './utils/Counter'
 import './App.css'
 
 function App() {
@@ -17,13 +18,18 @@ function App() {
         Header
       </header>
       <main>
-        <p>Editor:</p>
-        <div className="editor">
-          <Editor document={document} onChange={handleOnChange} />
+        <div className="editor-panel">
+          <p>Editor:</p>
+          <div className="editor">
+            <Editor document={document} onChange={handleOnChange} />
+          </div>
+          <div>Character count: { counter({ children: document }) }</div>
         </div>
-        <p>Serialized HTML:</p>
-        <div className="output">
-          <div className="content" dangerouslySetInnerHTML={{ __html: serialize({ children: document }) }} />
+        <div className="html-panel">
+          <p>Serialized HTML:</p>
+          <div className="output">
+            <div className="content" dangerouslySetInnerHTML={{ __html: serialize({ children: document }) }} />
+          </div>
         </div>
       </main>
     </>
