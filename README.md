@@ -2,6 +2,8 @@
 
 A 'proof of concept' editor with Slate.
 
+- [Slate](https://www.slatejs.org/)
+
 A simplified version of 
 
 - [https://github.com/shalabhvyas/wysiwyg-editor](https://github.com/shalabhvyas/wysiwyg-editor)
