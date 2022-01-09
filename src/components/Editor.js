@@ -32,7 +32,7 @@ export default function CustomEditor({ document, onChange }) {
     [onChange, editor]
   );
 
-  const onKeyDown = useCallback(
+  const handleOnKeyDown = useCallback(
     event => {
       if (target) {
         // eslint-disable-next-line default-case
@@ -108,10 +108,10 @@ export default function CustomEditor({ document, onChange }) {
       <Editable 
           renderElement={renderElement} 
           renderLeaf={renderLeaf} 
-          onKeyDown={onKeyDown}
+          onKeyDown={handleOnKeyDown}
           placeholder="Enter some text..."
         />
-        {target && users.length > 0 && (
+        { target && users.length > 0 && (
         <Portal>
           <div
             ref={ref}
