@@ -4,7 +4,19 @@ import Mention from '../components/Mention'
 
 export default function useEditorConfig(editor) {
 
-  editor.isInline = (element) => ["link"].includes(element.type);
+  const { isInline, isVoid } = editor
+
+  editor.isInline = element => {
+    return element.type === 'mention' ? true : isInline(element)
+  }
+
+  editor.isVoid = element => {
+    return element.type === 'mention' ? true : isVoid(element)
+  }
+
+  editor.isInline = element => {
+    return element.type === 'link' ? true : isInline(element)
+  }
 
   return { renderElement, renderLeaf };
 }
@@ -12,8 +24,6 @@ export default function useEditorConfig(editor) {
 function renderElement(props) {
   const { element, children, attributes } = props;
   switch (element.type) {
-    case 'mention':
-      return <Mention {...props} />
     case "paragraph":
       return <p {...attributes}>{children}</p>;
     case "h1":
@@ -24,6 +34,8 @@ function renderElement(props) {
       return <h3 {...attributes}>{children}</h3>;
     case "h4":
       return <h4 {...attributes}>{children}</h4>;
+    case 'mention':
+      return <Mention {...props} />
     case "link":
       return <Link {...props} url={element.url} />;
     default:

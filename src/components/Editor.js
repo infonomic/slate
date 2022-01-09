@@ -13,21 +13,18 @@ import useEditorConfig from '../hooks/useEditorConfig'
 import { identifyLinksInTextIfAny } from '../utils/EditorUtils'
 
 export default function CustomEditor({ document, onChange }) {
-  // const editor = useMemo(() => withReact(createEditor()), []);
-  // const renderElement = useCallback(props => <Element {...props} />, [])
   const editor = useMemo(() => withMentions(withReact(createEditor())),[])
   const { renderElement, renderLeaf } = useEditorConfig(editor);
-
   const ref = useRef()
   const [target, setTarget] = useState(null)
   const [index, setIndex] = useState(0)
   const [search, setSearch] = useState('')
 
-  const chars = CHARACTERS.filter(c =>
+  const users = USERS.filter(c =>
     c.toLowerCase().startsWith(search.toLowerCase())
   ).slice(0, 10)
 
-  const onChangeLocal = useCallback(
+  const handleOnChange = useCallback(
     (document) => {
       onChange(document);
       identifyLinksInTextIfAny(editor);
@@ -42,19 +39,19 @@ export default function CustomEditor({ document, onChange }) {
         switch (event.key) {
           case 'ArrowDown':
             event.preventDefault()
-            const prevIndex = index >= chars.length - 1 ? 0 : index + 1
+            const prevIndex = index >= users.length - 1 ? 0 : index + 1
             setIndex(prevIndex)
             break
           case 'ArrowUp':
             event.preventDefault()
-            const nextIndex = index <= 0 ? chars.length - 1 : index - 1
+            const nextIndex = index <= 0 ? users.length - 1 : index - 1
             setIndex(nextIndex)
             break
           case 'Tab':
           case 'Enter':
             event.preventDefault()
             Transforms.select(editor, target)
-            insertMention(editor, chars[index])
+            insertMention(editor, users[index])
             setTarget(null)
             break
           case 'Escape':
@@ -64,26 +61,25 @@ export default function CustomEditor({ document, onChange }) {
         }
       }
     },
-    [index, target, chars, editor]
+    [index, target, users, editor]
   )
 
   useEffect(() => {
-    if (target && chars.length > 0) {
+    if (target && users.length > 0) {
       const el = ref.current
       const domRange = ReactEditor.toDOMRange(editor, target)
       const rect = domRange.getBoundingClientRect()
       el.style.top = `${rect.top + window.pageYOffset + 24}px`
       el.style.left = `${rect.left + window.pageXOffset}px`
     }
-  }, [chars.length, editor, index, search, target])
+  }, [users.length, editor, index, search, target])
 
   return (
     <Slate 
       editor={editor} 
       value={document} 
-      // onChange={onChangeLocal}
       onChange={value => {
-        onChangeLocal(value)
+        handleOnChange(value)
         const { selection } = editor
 
         if (selection && Range.isCollapsed(selection)) {
@@ -115,7 +111,7 @@ export default function CustomEditor({ document, onChange }) {
           onKeyDown={onKeyDown}
           placeholder="Enter some text..."
         />
-        {target && chars.length > 0 && (
+        {target && users.length > 0 && (
         <Portal>
           <div
             ref={ref}
@@ -131,16 +127,16 @@ export default function CustomEditor({ document, onChange }) {
             }}
             data-cy="mentions-portal"
           >
-            {chars.map((char, i) => (
+            {users.map((user, i) => (
               <div
-                key={char}
+                key={user}
                 style={{
                   padding: '1px 3px',
                   borderRadius: '3px',
                   background: i === index ? '#B4D5FF' : 'transparent',
                 }}
               >
-                {char}
+                {user}
               </div>
             ))}
           </div>
@@ -164,17 +160,17 @@ const withMentions = editor => {
   return editor
 }
 
-const insertMention = (editor, character) => {
+const insertMention = (editor, user) => {
   const mention = {
     type: 'mention',
-    character,
+    user,
     children: [{ text: '' }],
   }
   Transforms.insertNodes(editor, mention)
   Transforms.move(editor)
 }
 
-const CHARACTERS = [
+const USERS = [
   'Aayla Secura',
   'Adi Gallia',
   'Admiral Dodd Rancit',

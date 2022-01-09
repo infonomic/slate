@@ -9,7 +9,7 @@ export default function Mention({ attributes, children, element }) {
     <span
       {...attributes}
       contentEditable={false}
-      data-cy={`mention-${element.character.replace(' ', '-')}`}
+      data-cy={`mention-${element.user.replace(' ', '-')}`}
       style={{
         padding: '3px 3px 2px',
         margin: '0 1px',
@@ -21,7 +21,7 @@ export default function Mention({ attributes, children, element }) {
         boxShadow: selected && focused ? '0 0 0 2px #B4D5FF' : 'none',
       }}
     >
-      @{element.character}
+      @{element.user}
       {children}
     </span>
   )

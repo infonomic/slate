@@ -10,13 +10,26 @@ const ExampleDocument = [
   {
     type: "paragraph",
     children: [
-      { text: "Hello World! This is my paragraph inside a sample document." },
-      { text: " Bold text. ", bold: true, code: true },
+      { text: "Hello World! This is a paragraph inside a sample document followed by a mention --> " },
+      {
+        type: "mention",
+        user: "Dark Ralter",
+        children: [
+          { text: "" },
+        ],
+      },
+      { text: " Even though we're unlikely to show these initially, we may offer some markdown features that allow... " },
+      { text: " Some bold text. ", bold: true, code: true },
       { text: " Italic text. ", italic: true },
       { text: " Bold and underlined text.", bold: true, underline: true },
       { text: " variableFoo ", code: true },
       { text: " Some text before a link. " },
-      { text: " Some text that will contain a long word as well as enough text to test hyphenation of other words in the same paragraph. The following long word: 0x295e26495CEF6F69dFA69911d9D8e4F3bBadB89B "},
+    ],
+  },
+  {
+    type: "paragraph",
+    children: [
+      { text: "Some text that will contain a long word as well as enough text to test hyphenation of other words in the same paragraph. The following long word: 0x295e26495CEF6F69dFA69911d9D8e4F3bBadB89B "},
       {
         type: "link",
         url: "https://www.google.com",
